@@ -1,0 +1,27 @@
+/* Define CSS Variables */
+:root {
+  /* Colors */
+  --primary-color: #2c3e50;
+  --secondary-color: #34495e;
+  --accent-color: #3498db;
+  --text-color: #ecf0f1;
+  --background-color: #f5f5f5;
+
+  /* Border */
+  --border-radius: 8px;
+
+  /* Transition */
+  --transition-speed: 0.2s;
+
+  /* Font size */
+  --font-size-base: 1rem;
+  --font-size-large: 1.5rem;
+  /* Spacing */
+  --spacing-small: 0.5rem;
+  --spacing-medium: 1rem;
+  --spacing-large: 2rem;
+  --spacing-x-large: 4rem;
+
+  --table-header-background-color: var(--secondary-color);
+  --table-row-alt-background-color: #f9f9f9;
+}
