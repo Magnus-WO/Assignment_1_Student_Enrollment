@@ -58,7 +58,7 @@
 
       <section class="section section--courses">
         <h2 class="section__title">Course Management</h2>
-        <button class="button add-course--button" id="addCourse">
+        <button class="button add-course__button" id="addCourse">
           Add Course
         </button>
         <table class="table table--courses">
@@ -81,17 +81,21 @@
     <div class="add-modal">
       <form class="add-modal__form">
         <div class="add-modal__form-group">
-          <label for="name">Name:</label>
+          <label class="add-modal__form-group-label name-label" for="name"
+            >Name:</label
+          >
           <input type="text" name="name" id="name" />
         </div>
 
         <div class="add-modal__form-group">
-          <label for="email">Email:</label>
+          <label class="add-modal__form-group-label" for="email">Email:</label>
           <input type="email" name="email" id="email" />
         </div>
 
         <div class="add-modal__form-group course-dropdown">
-          <label for="courses">Select course:</label>
+          <label class="add-modal__form-group-label" for="courses"
+            >Select course:</label
+          >
           <select name="courses" id="courses">
             <option value="economics">Economics</option>
             <option value="math">Math</option>
@@ -101,7 +105,9 @@
         </div>
 
         <div class="add-modal__form-group course-code">
-          <label for="course-code">Course code</label>
+          <label class="add-modal__form-group-label" for="course-code"
+            >Course code</label
+          >
           <input type="text" name="course-code" id="course-code" />
         </div>
 
@@ -141,6 +147,6 @@
         </div>
       </div>
     </div>
-    <script type="modal" src="./src/js/app.js"></script>
+    <script type="module" src="./src/js/app.js"></script>
   </body>
 </html>

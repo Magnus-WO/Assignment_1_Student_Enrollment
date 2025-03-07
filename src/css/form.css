@@ -3,9 +3,8 @@
   width: 100%;
   height: 100%;
   display: none;
-  /* display: flex;
   justify-content: center;
-  align-items: center; */
+  align-items: center;
   position: fixed;
   top: 0;
   left: 0;
@@ -42,7 +41,7 @@
 }
 
 .add-modal__form-button {
-  width: 64px;
+  width: 128px;
   height: 32px;
   background-color: var(--accent-color);
   color: var(--text-color);
