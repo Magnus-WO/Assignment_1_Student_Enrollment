@@ -14,6 +14,7 @@ const feedbackMessage = document.querySelector(".add-form__feedback-message");
 // const closeAddModalButton = document.querySelector(
 //   ".add-modal__button--cancel"
 // );
+
 // Form elements
 const form = document.querySelector(".add-modal__form");
 const nameInputLabel = document.querySelector(".name-label");
@@ -49,16 +50,13 @@ document.addEventListener("DOMContentLoaded", () => {
   Ui.closeAddModal(closeModalButton, addModal);
 });
 
-// Select elements
-
-
-
 // openAddModalButton.forEach((button) => {
 //   button.addEventListener("click", () => {
 //     Ui.openAddModal(closeAddModalButton, addModal, form);
 //   });
 // });
 
+// Form validation
 form.addEventListener("submit", (e) => {
   e.preventDefault();
   Form.formValidation(feedbackMessage);
