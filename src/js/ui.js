@@ -1,5 +1,6 @@
 class Ui {
   static currentEditId = null;
+  //   Open add modals
   static openAddModal(
     addStudentButton,
     addModal,
@@ -71,6 +72,7 @@ class Ui {
     );
   }
 
+  //   Close add modals
   static closeAddModal(closeModalButton, addModal) {
     closeModalButton.addEventListener("click", () => {
       addModal.classList.remove("display-modal");
