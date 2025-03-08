@@ -18,7 +18,7 @@
     <main class="main">
       <section class="section section--students">
         <h2 class="section__title">Student Management</h2>
-        <button class="button add-student__button" id="addStudent">
+        <button class="add-modal__button add-student__button" id="addStudent">
           Add Student
         </button>
         <table class="table table--students">
@@ -38,7 +38,10 @@
 
       <section class="section section--instructors">
         <h2 class="section__title">Instructor Management</h2>
-        <button class="button add-instructor__button" id="addInstructor">
+        <button
+          class="add-modal__button add-instructor__button"
+          id="addInstructor"
+        >
           Add Instructor
         </button>
         <table class="table table--instructors">
@@ -58,7 +61,7 @@
 
       <section class="section section--courses">
         <h2 class="section__title">Course Management</h2>
-        <button class="button add-course__button" id="addCourse">
+        <button class="add-modal__button add-course__button" id="addCourse">
           Add Course
         </button>
         <table class="table table--courses">
@@ -84,12 +87,22 @@
           <label class="add-modal__form-group-label name-label" for="name"
             >Name:</label
           >
-          <input type="text" name="name" id="name" />
+          <input
+            type="text"
+            name="name"
+            id="name"
+            placeholder="enter your full name"
+          />
         </div>
 
         <div class="add-modal__form-group">
           <label class="add-modal__form-group-label" for="email">Email:</label>
-          <input type="email" name="email" id="email" />
+          <input
+            type="email"
+            name="email"
+            id="email"
+            placeholder="enter your email"
+          />
         </div>
 
         <div class="add-modal__form-group course-dropdown">
@@ -110,7 +123,7 @@
           >
           <input type="text" name="course-code" id="course-code" />
         </div>
-
+        <p class="add-form__feedback-message"></p>
         <div class="add-modal__form-buttons">
           <button
             type="button"

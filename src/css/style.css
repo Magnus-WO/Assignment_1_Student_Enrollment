@@ -37,7 +37,7 @@ body {
   margin-bottom: var(--spacing-small);
 }
 
-.button {
+.add-modal__button {
   background-color: var(--accent-color);
   color: var(--text-color);
   border: none;
