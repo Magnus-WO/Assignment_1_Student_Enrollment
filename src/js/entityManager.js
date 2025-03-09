@@ -19,6 +19,7 @@ class Manager {
         "student-collection",
         JSON.stringify(Manager.studentCollection)
       );
+      console.log(person);
     } else if (personType === "instructor") {
       person = new Instructor(name, email, selectedCourse);
       Manager.instructorCollection.push(person);

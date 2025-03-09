@@ -8,10 +8,10 @@ class Person {
 }
 
 class Student extends Person {
-  constructor(name, email, selectedCourse) {
+  constructor(name, email, selectedCourse, studentId) {
     super(name, email);
-    this.studentId = uuidv4();
     this.course = selectedCourse;
+    this.studentId = uuidv4();
   }
 }
 
