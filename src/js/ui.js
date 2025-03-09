@@ -7,14 +7,17 @@ class Ui {
     form,
     courseCodeInputGroup,
     formSubmitButton,
-    modalType
+    modalType,
+    emailInputContainer
   ) {
-    addStudentButton.addEventListener("click", () => {
+    addStudentButton.addEventListener("click", (e) => {
       form.reset();
+
       Ui.currentEditId = null;
       addModal.classList.add("display-modal");
       if (modalType === "course") {
         courseCodeInputGroup.style.visibility = "visible";
+        emailInputContainer.style.visibility = "hidden";
       } else {
         courseCodeInputGroup.style.visibility = "hidden";
       }
@@ -73,15 +76,39 @@ class Ui {
   }
 
   //   Close add modals
-  static closeAddModal(closeModalButton, addModal, form) {
+  static closeAddModal(closeModalButton, addModal, feedbackMessage, form) {
     closeModalButton.addEventListener("click", () => {
       addModal.classList.remove("display-modal");
+      feedbackMessage.textContent = "";
+      const fieldsToValidate = [
+        { name: "name" },
+        { name: "email" },
+        { name: "courses" },
+        { name: "courses-code" },
+      ];
+      for (let field of fieldsToValidate) {
+        const inputField = document.querySelector(`[id= ${field.name}]`);
+        inputField.classList.remove("input-field__error");
+      }
+      form.reset();
     });
 
     // Close modal on click outside of form
     addModal.addEventListener("click", (e) => {
       if (e.target === addModal) {
         addModal.classList.remove("display-modal");
+        feedbackMessage.textContent = "";
+        const fieldsToValidate = [
+          { name: "name" },
+          { name: "email" },
+          { name: "courses" },
+          { name: "courses-code" },
+        ];
+        for (let field of fieldsToValidate) {
+          const inputField = document.querySelector(`[id= ${field.name}]`);
+          inputField.classList.remove("input-field__error");
+        }
+        form.reset();
       }
     });
   }
@@ -91,27 +118,7 @@ class Ui {
     emailContainer,
     selectOptionsContainer,
     courseCodeContainer
-  ) {
-    // Student
-    // if (e.target.dataset.button === "student") {
-    //   // formHeader.textContent = "Add student";
-    //   emailContainer.style.display = "flex";
-    //   selectOptionsContainer.style.display = "flex";
-    //   courseCodeContainer.style.display = "none";
-    //   // Instructor
-    // } else if (e.target.dataset.button === "instructor") {
-    //   formHeader.textContent = "Add instructor";
-    //   emailContainer.style.display = "flex";
-    //   selectOptionsContainer.style.display = "flex";
-    //   courseCodeContainer.style.display = "none";
-    //   // Course
-    // } else if (e.target.dataset.button === "course") {
-    //   formHeader.textContent = "Add course";
-    //   emailContainer.style.display = "none";
-    //   selectOptionsContainer.style.display = "none";
-    //   courseCodeContainer.style.display = "flex";
-    // }
-  }
+  ) {}
 }
 
 export default Ui;
