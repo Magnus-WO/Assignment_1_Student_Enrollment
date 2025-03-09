@@ -59,13 +59,13 @@ addInstructorButton.addEventListener("click", () => {
 
 form.addEventListener("submit", (e) => {
   e.preventDefault();
-  // Form.formValidation(feedbackMessage);
+  Form.formValidation(feedbackMessage);
 
-  // // Form validation
-  // if (!Form.formValidation(feedbackMessage)) {
-  //   console.log("form not submitted");
-  //   return;
-  // }
+  // Form validation
+  if (!Form.formValidation(feedbackMessage)) {
+    console.log("form not submitted");
+    return;
+  }
 
   //   Submit form
   console.log("Name:", name.value.trim());
