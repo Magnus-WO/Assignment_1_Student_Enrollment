@@ -10,82 +10,111 @@ const formSubmitButton = document.querySelector(".add-modal__button--confirm");
 const closeModalButton = document.querySelector(".add-modal__button--cancel");
 const feedbackMessage = document.querySelector(".add-form__feedback-message");
 
-const confirmAddButton = document.querySelector(".add-modal__button--confirm");
-
 // Form elements
 const form = document.querySelector(".add-modal__form");
-const formHeader = document.querySelector(".form__header");
-const nameInputLabel = document.querySelector(".name-label");
+const nameInputContainer = document.querySelector(".name-container");
 const nameInput = document.querySelector("#name");
-const emailInput = document.querySelector("#email");
-const courseDropdown = document.querySelector("#courses");
-const courseCodeInput = document.querySelector("#course-code");
+
 const emailInputContainer = document.querySelector(".email-container");
+const emailInput = document.querySelector("#email");
+
+const courseDropdownContainer = document.querySelector(
+  ".select-course-dropdown"
+);
+const courseDropdown = document.querySelector("#courses");
+
 const courseCodeInputGroup = document.querySelector(".course-code__group");
+const courseCodeInput = document.querySelector("#course-code");
+
+const courseNameInputContainer = document.querySelector(
+  ".course-name-container"
+);
+const courseNameInput = document.querySelector("#course-name");
+
 // Event listener
 document.addEventListener("DOMContentLoaded", () => {
+  Ui.renderTable("student-collection", "#studentList");
+  Ui.renderTable("instructor-collection", "#instructorList");
+  Ui.renderCourses();
   Ui.openAddStudentModal(
     addStudentButton,
     addModal,
     form,
+    nameInputContainer,
     courseCodeInputGroup,
-    formSubmitButton,
-    emailInputContainer
+    emailInputContainer,
+    courseDropdownContainer,
+    courseNameInputContainer,
+    formSubmitButton
   );
   Ui.openAddInstructorModal(
     addInstructorButton,
     addModal,
     form,
+    nameInputContainer,
     courseCodeInputGroup,
+    emailInputContainer,
+    courseDropdownContainer,
+    courseNameInputContainer,
     formSubmitButton
   );
   Ui.openAddCourseModal(
     addCourseButton,
     addModal,
     form,
+    nameInputContainer,
     courseCodeInputGroup,
-    formSubmitButton,
-    "course"
+    emailInputContainer,
+    courseDropdownContainer,
+    courseNameInputContainer,
+    formSubmitButton
   );
   Ui.closeAddModal(closeModalButton, addModal, feedbackMessage, form);
 });
-// Track student or instructor buttons
-let selectedPersonType = "";
-addStudentButton.addEventListener("click", (e) => {
-  selectedPersonType = "student";
+
+// Track which button is pressed
+let selectedForm = "";
+addStudentButton.addEventListener("click", () => {
+  selectedForm = "student";
 });
 addInstructorButton.addEventListener("click", () => {
-  selectedPersonType = "instructor";
+  selectedForm = "instructor";
 });
 addCourseButton.addEventListener("click", () => {
-  selectedPersonType = "course";
+  selectedForm = "course";
 });
+
+// Submit form
 form.addEventListener("submit", (e) => {
   e.preventDefault();
-  if (!Form.personFormValidation(feedbackMessage)) {
-    console.log("student not submitted");
-    return;
-  }
-  if (selectedPersonType === "student") {
+
+  // Check if adding a person or a course
+  if (selectedForm === "student" || selectedForm === "instructor") {
+    if (!Form.personFormValidation(feedbackMessage)) {
+      console.log(`${selectedForm} not submitted`);
+      return;
+    }
     Manager.addPerson(
       nameInput.value.trim(),
       emailInput.value.trim(),
       courseDropdown,
-      selectedPersonType
+      selectedForm
     );
-    Form.personFormValidation(feedbackMessage);
-  }
-  if (selectedPersonType === "instructor") {
-    Manager.addPerson(
-      nameInput.value.trim(),
-      emailInput.value.trim(),
-      courseDropdown,
-      selectedPersonType
+    Ui.renderTable(
+      selectedForm === "student"
+        ? "student-collection"
+        : "instructor-collection",
+      selectedForm === "student" ? "#studentList" : "#instructorList"
     );
-    Form.personFormValidation(feedbackMessage);
-  }
-  if (selectedPersonType === "course") {
-    Manager.addCourse(nameInput.value.trim(), courseCodeInput.value.trim());
-    Form.courseFormValidation(feedbackMessage);
+  } else if (selectedForm === "course") {
+    if (!Form.courseFormValidation(feedbackMessage)) {
+      console.log("course not submitted");
+      return;
+    }
+    Manager.addCourse(
+      courseNameInput.value.trim(),
+      courseCodeInput.value.trim()
+    );
+    Ui.renderCourses();
   }
 });

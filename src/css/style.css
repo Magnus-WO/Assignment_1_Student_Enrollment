@@ -1,5 +1,5 @@
 body {
-  min-width: 340px;
+  min-width: 350px;
   width: 100%;
   min-height: 100vh;
   font-family: Arial, sans-serif;
@@ -15,7 +15,6 @@ body {
   padding: var(--spacing-medium);
   text-align: center;
   color: var(--text-color);
-  font-size: var(--font-size-medium);
 }
 
 .main {
@@ -37,7 +36,8 @@ body {
   margin-bottom: var(--spacing-small);
 }
 
-.add-modal__button {
+.button {
+  width: 120px;
   background-color: var(--accent-color);
   color: var(--text-color);
   border: none;
@@ -67,12 +67,31 @@ body {
 }
 
 .table__body tr:nth-child(even) {
-  background-color: var(--secondary-color);
+  background-color: var(--table-accent-color);
 }
 
 .table__body td {
+  max-width: 25%;
   padding: var(--spacing-small);
   border-bottom: 1px solid #ddd;
+}
+
+.action-buttons__container {
+  display: flex;
+  gap: var(--spacing-small);
+}
+.action-buttons__container > button {
+  width: 32px;
+  height: 32px;
+  background-color: transparent;
+  border: 1px solid var(--accent-color);
+  border-radius: 180px;
+  transition: all 0.2s ease;
+}
+.action-buttons__container > button:hover {
+  background-color: var(--accent-color);
+  color: var(--text-color);
+  border: none;
 }
 
 @media (max-width: 768px) {
@@ -82,5 +101,48 @@ body {
 
   .section {
     padding: var(--spacing-small);
+  }
+  .table__body td {
+    font-size: var(--font-size-small);
+  }
+}
+@media screen and (max-width: 600px) {
+  .section__title {
+    font-size: var(--font-size-base);
+  }
+  .button {
+    height: 32px;
+    padding: 0;
+    font-size: var(--font-size-small);
+  }
+  .table__body td {
+    border-left: 1px solid #ddd;
+    border-right: 1px solid #ddd;
+  }
+  .action-buttons__container {
+    width: 100%;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  .action-buttons__container > button {
+    width: 24px;
+    height: 24px;
+  }
+}
+
+@media screen and (max-width: 460px) {
+  .button {
+    width: 100px;
+  }
+  .table__body td {
+    font-size: var(--font-size-x-small);
+    line-break: anywhere;
+  }
+}
+
+@media screen and (max-width: 460px) {
+  .table__body td {
+    line-break: anywhere;
   }
 }

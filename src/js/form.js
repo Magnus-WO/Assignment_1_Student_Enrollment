@@ -27,7 +27,7 @@ class Form {
   static courseFormValidation(feedbackMessage) {
     feedbackMessage.textContent = "";
     const fieldsToValidate = [
-      { name: "name", message: "Please enter your full name" },
+      { name: "course-name", message: "Please enter a course name" },
       { name: "course-code", message: "Please enter the course code" },
     ];
     for (let field of fieldsToValidate) {
