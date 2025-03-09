@@ -24,6 +24,9 @@
   flex-direction: column;
   gap: var(--spacing-small);
 }
+.course-name-container {
+  display: none;
+}
 
 .add-modal__form-group > input {
   width: 100%;

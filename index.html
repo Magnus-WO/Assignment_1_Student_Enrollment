@@ -92,8 +92,7 @@
     <!-- Add modal ---------------------------- -->
     <div class="add-modal">
       <form class="add-modal__form">
-        <h1 class="form__header"></h1>
-        <div class="add-modal__form-group">
+        <div class="add-modal__form-group name-container">
           <label class="add-modal__form-group-label name-label" for="name"
             >Name:</label
           >
@@ -113,6 +112,19 @@
             name="email"
             id="email"
             placeholder="Enter your email"
+            class="add-modal__form-input"
+          />
+        </div>
+
+        <div class="add-modal__form-group course-name-container">
+          <label class="add-modal__form-group-label" for="course-name"
+            >Name of course:</label
+          >
+          <input
+            type="text"
+            name="course-name"
+            id="course-name"
+            placeholder="Enter name of course"
             class="add-modal__form-input"
           />
         </div>
@@ -144,6 +156,7 @@
             class="add-modal__form-input"
           />
         </div>
+
         <p class="add-form__feedback-message"></p>
         <div class="add-modal__form-buttons">
           <button
