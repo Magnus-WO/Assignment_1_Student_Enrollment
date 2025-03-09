@@ -18,7 +18,11 @@
     <main class="main">
       <section class="section section--students">
         <h2 class="section__title">Student Management</h2>
-        <button class="add-modal__button add-student__button" id="addStudent">
+        <button
+          class="add-modal__button add-student__button"
+          id="addStudent"
+          data-button="student"
+        >
           Add Student
         </button>
         <table class="table table--students">
@@ -41,6 +45,7 @@
         <button
           class="add-modal__button add-instructor__button"
           id="addInstructor"
+          data-button="instructor"
         >
           Add Instructor
         </button>
@@ -61,7 +66,11 @@
 
       <section class="section section--courses">
         <h2 class="section__title">Course Management</h2>
-        <button class="add-modal__button add-course--button" id="addCourse">
+        <button
+          class="add-modal__button add-course--button"
+          id="addCourse"
+          data-button="course"
+        >
           Add Course
         </button>
         <table class="table table--courses">
@@ -83,28 +92,21 @@
     <!-- Add modal ---------------------------- -->
     <div class="add-modal">
       <form class="add-modal__form">
-        <div class="add-modal__form-group">
-          <label for="name">Name:</label>
-          <input
-            type="text"
-            name="name"
-            id="name"
-            placeholder="enter your full name"
-          />
+        <h1 class="form__header"></h1>
+        <div class="add-modal__form-group form__name-container">
+          <label for="name" class="label__name">Name:</label>
+          <input type="text" name="name" id="name" />
         </div>
 
-        <div class="add-modal__form-group">
-          <label for="email">Email:</label>
-          <input
-            type="email"
-            name="email"
-            id="email"
-            placeholder="enter your email"
-          />
+        <div class="add-modal__form-group form__email-container">
+          <label for="email" class="label__email">Email:</label>
+          <input type="email" name="email" id="email" />
         </div>
 
-        <div class="add-modal__form-group course-dropdown">
-          <label for="courses">Select course:</label>
+        <div
+          class="add-modal__form-group course-dropdown select-options-container"
+        >
+          <label for="courses" class="label__select">Select course:</label>
           <select name="courses" id="courses">
             <option value="economics">Economics</option>
             <option value="math">Math</option>
@@ -113,8 +115,12 @@
           </select>
         </div>
 
-        <div class="add-modal__form-group course-code">
-          <label for="course-code">Course code</label>
+        <div
+          class="add-modal__form-group course-code form__course-code-container"
+        >
+          <label for="course-code" class="label__course-code"
+            >Course code</label
+          >
           <input type="text" name="course-code" id="course-code" />
         </div>
         <p class="add-form__feedback-message"></p>
