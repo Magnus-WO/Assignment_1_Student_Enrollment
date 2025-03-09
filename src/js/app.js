@@ -1,92 +1,80 @@
-import Manager from "./entityManager.js";
-// import Form from "./formValidation.js";
+import Form from "./form.js";
 import Ui from "./ui.js";
+
 // Select elements
+const addForm = document.querySelector(".add-modal__form");
+const formHeader = document.querySelector(".form__header");
+//    Form Containers
+const nameContainer = document.querySelector(".form__name-container");
+const emailContainer = document.querySelector(".form__email-container");
+const selectOptionsContainer = document.querySelector(
+  ".select-options-container"
+);
+const courseCodeContainer = document.querySelector(
+  ".form__course-code-container"
+);
+// Form inputs
+const nameInput = document.querySelector("#name");
+const emailInput = document.querySelector("#email");
+const selectDropDown = document.querySelector("#courses");
+const courseCodeInput = document.querySelector("#course-code");
 
-const addStudentButton = document.querySelector(".add-student__button");
-const addInstructorButton = document.querySelector(".add-instructor__button");
-const addCourseButton = document.querySelector(".add-course__button");
+//Form labels
+const nameLabel = document.querySelector(".label__name");
+const emailLabel = document.querySelector(".label__email");
+const selectLabel = document.querySelector(".label__select");
+const courseCodeLabel = document.querySelector(".label__course-code");
 
-const addModal = document.querySelector(".add-modal");
-const formSubmitButton = document.querySelector(".add-modal__button--confirm");
-const closeModalButton = document.querySelector(".add-modal__button--cancel");
 const feedbackMessage = document.querySelector(".add-form__feedback-message");
+const openAddModalButton = document.querySelectorAll(".add-modal__button");
+const closeAddModalButton = document.querySelector(
+  ".add-modal__button--cancel"
+);
+const addModal = document.querySelector(".add-modal");
 
-// Form elements
-const form = document.querySelector(".add-modal__form");
-const nameInputLabel = document.querySelector(".name-label");
-const name = document.querySelector("#name");
-const email = document.querySelector("#email");
-const courseDropdown = document.querySelector("#courses");
-const courseCode = document.querySelector("#course-code");
-const courseCodeInputGroup = document.querySelector(".course-code__group");
-
-// Event listener
-document.addEventListener("DOMContentLoaded", () => {
-  Ui.openAddStudentModal(
-    addStudentButton,
-    addModal,
-    form,
-    courseCodeInputGroup,
-    formSubmitButton
-  );
-  Ui.openAddInstructorModal(
-    addInstructorButton,
-    addModal,
-    form,
-    courseCodeInputGroup,
-    formSubmitButton
-  );
-  Ui.openAddCourseModal(
-    addCourseButton,
-    addModal,
-    form,
-    courseCodeInputGroup,
-    formSubmitButton,
-    "course"
-  );
-  Ui.closeAddModal(closeModalButton, addModal);
+openAddModalButton.forEach((button) => {
+  button.addEventListener("click", (e) => {
+    Ui.openAddModal(closeAddModalButton, addModal, addForm);
+    Ui.renderForm(
+      e,
+      formHeader,
+      nameContainer,
+      emailContainer,
+      selectOptionsContainer,
+      courseCodeContainer
+    );
+  });
 });
 
-// Track student or instructor buttons
-let selectedPersonType = "";
-addStudentButton.addEventListener("click", () => {
-  selectedPersonType = "student";
+addForm.addEventListener("submit", (e) => {
+  e.preventDefault();
+  Form.formValidation(feedbackMessage);
 
-  addInstructorButton.addEventListener("click", () => {
-    selectedPersonType = "instructor";
-  });
+  // Form validation
+  if (!Form.formValidation(feedbackMessage)) {
+    console.log("form not submitted");
+    return;
+  }
+  // Not done ------------
+  //   Submit form
+  console.log("Name:", name.value.trim());
+  console.log("Email:", email.value.trim());
+  // Ensure you are getting the course value
+  console.log("Selected Course:", courseDropdown.value);
 
-  form.addEventListener("submit", (e) => {
-    e.preventDefault();
-    Form.formValidation(feedbackMessage);
+  if (!Ui.currentEditId) {
+    Manager.addPerson(
+      name.value.trim(),
+      email.value.trim(),
+      courseDropdown.value,
+      selectedPersonType
+    );
+    feedbackMessage.textContent = "Submitted";
+  } else {
+    // Manager.currentEditId()
+    Ui.currentEditId = null;
+    formSubmitButton.textContent = "Add";
+  }
 
-    // Form validation
-    if (!Form.formValidation(feedbackMessage)) {
-      console.log("form not submitted");
-      return;
-    }
-    // Not done ------------
-    //   Submit form
-    console.log("Name:", name.value.trim());
-    console.log("Email:", email.value.trim());
-    // Ensure you are getting the course value
-    console.log("Selected Course:", courseDropdown.value);
-
-    if (!Ui.currentEditId) {
-      Manager.addPerson(
-        name.value.trim(),
-        email.value.trim(),
-        courseDropdown.value,
-        selectedPersonType
-      );
-      feedbackMessage.textContent = "Submitted";
-    } else {
-      // Manager.currentEditId()
-      Ui.currentEditId = null;
-      formSubmitButton.textContent = "Add";
-    }
-
-    form.reset();
-  });
+  form.reset();
 });
