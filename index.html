@@ -19,11 +19,9 @@
       <section class="section section--students">
         <h2 class="section__title">Student Management</h2>
         <button
-
           class="button add-modal__button add-student__button"
-          id="addStudent" data-button="student"
-
-      
+          id="addStudent"
+          data-button="student"
         >
           Add Student
         </button>
@@ -71,8 +69,7 @@
         <button
           class="button add-modal__button add-course__button"
           data-button="course"
-          id="addCourse" 
-
+          id="addCourse"
         >
           Add Course
         </button>
@@ -95,7 +92,7 @@
     <!-- Add modal ---------------------------- -->
     <div class="add-modal">
       <form class="add-modal__form">
-        <div class="add-modal__form-group form__name-container">
+        <div class="add-modal__form-group">
           <label class="add-modal__form-group-label name-label" for="name"
             >Name:</label
           >
@@ -108,7 +105,7 @@
           />
         </div>
 
-        <div class="add-modal__form-group form__email-container">
+        <div class="add-modal__form-group">
           <label class="add-modal__form-group-label" for="email">Email:</label>
           <input
             type="email"
@@ -119,7 +116,7 @@
           />
         </div>
 
-        <div class="add-modal__form-group course-dropdown select-options-container">
+        <div class="add-modal__form-group select-course-dropdown">
           <label class="add-modal__form-group-label" for="courses"
             >Select course:</label
           >
@@ -132,9 +129,10 @@
           </select>
         </div>
 
-
-        <div class="add-modal__form-group course-code__group form__course-code-container">
-          <label class="add-modal__form-group-label label__course-code" for="course-code"
+        <div class="add-modal__form-group course-code__group">
+          <label
+            class="add-modal__form-group-label label__course-code"
+            for="course-code"
             >Course code</label
           >
           <input
@@ -144,8 +142,6 @@
             placeholder="e.g FFU1200"
             class="add-modal__form-input"
           />
-
-      
         </div>
         <p class="add-form__feedback-message"></p>
         <div class="add-modal__form-buttons">
