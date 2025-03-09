@@ -5,6 +5,8 @@ class Manager {
     JSON.parse(localStorage.getItem("student-collection")) || [];
   static instructorCollection =
     JSON.parse(localStorage.getItem("instructor-collection")) || [];
+  static courseCollection =
+    JSON.parse(localStorage.getItem("course-collection")) || [];
 
   static addPerson(name, email, courseDropdown, personType) {
     const selectedCourse = courseDropdown.value;
@@ -27,6 +29,18 @@ class Manager {
     }
 
     return person;
+  }
+  static addCourse(name, courseCode) {
+    let course;
+    course = new Course(name, courseCode);
+    Manager.courseCollection.push(course);
+    localStorage.setItem(
+      "course-collection",
+      JSON.stringify(Manager.courseCollection)
+    );
+    console.log(course);
+
+    return course;
   }
 }
 
