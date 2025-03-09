@@ -14,9 +14,9 @@ class Ui {
       Ui.currentEditId = null;
       addModal.classList.add("display-modal");
       if (modalType === "course") {
-        courseCodeInputGroup.style.display = "flex";
+        courseCodeInputGroup.style.visibility = "visible";
       } else {
-        courseCodeInputGroup.style.display = "none";
+        courseCodeInputGroup.style.visibility = "hidden";
       }
       formSubmitButton.textContent = `Add ${modalType}`;
     });
@@ -73,9 +73,16 @@ class Ui {
   }
 
   //   Close add modals
-  static closeAddModal(closeModalButton, addModal) {
+  static closeAddModal(closeModalButton, addModal, form) {
     closeModalButton.addEventListener("click", () => {
       addModal.classList.remove("display-modal");
+    });
+
+    // Close modal on click outside of form
+    addModal.addEventListener("click", (e) => {
+      if (e.target === addModal) {
+        addModal.classList.remove("display-modal");
+      }
     });
   }
 }

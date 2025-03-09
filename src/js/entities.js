@@ -1,4 +1,5 @@
 import { v4 as uuidv4 } from "uuid";
+
 class Person {
   constructor(name, email) {
     this.name = name;
@@ -7,25 +8,26 @@ class Person {
 }
 
 class Student extends Person {
-  constructor(name, email, studentId, course) {
+  constructor(name, email, selectedCourse) {
     super(name, email);
     this.studentId = uuidv4();
-    this.course = course;
+    this.course = selectedCourse;
   }
 }
+
 class Instructor extends Person {
-  constructor(name, email, instructorId, course) {
+  constructor(name, email, selectedCourse) {
     super(name, email);
     this.instructorId = uuidv4();
-    this.course = course;
+    this.course = selectedCourse;
   }
 }
 
 class Course {
-  constructor(name, code, availability) {
+  constructor(name, courseCode) {
     this.name = name;
-    this.code = code;
-    this.availability = availability;
+    this.code = courseCode;
+    this.availability = true;
   }
 }
 
