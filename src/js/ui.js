@@ -85,6 +85,33 @@ class Ui {
       }
     });
   }
+  static renderForm(
+    e,
+    formHeader,
+    emailContainer,
+    selectOptionsContainer,
+    courseCodeContainer
+  ) {
+    // Student
+    if (e.target.dataset.button === "student") {
+      formHeader.textContent = "Add student";
+      emailContainer.style.display = "flex";
+      selectOptionsContainer.style.display = "flex";
+      courseCodeContainer.style.display = "none";
+      // Instructor
+    } else if (e.target.dataset.button === "instructor") {
+      formHeader.textContent = "Add instructor";
+      emailContainer.style.display = "flex";
+      selectOptionsContainer.style.display = "flex";
+      courseCodeContainer.style.display = "none";
+      // Course
+    } else if (e.target.dataset.button === "course") {
+      formHeader.textContent = "Add course";
+      emailContainer.style.display = "none";
+      selectOptionsContainer.style.display = "none";
+      courseCodeContainer.style.display = "flex";
+    }
+  }
 }
 
 export default Ui;

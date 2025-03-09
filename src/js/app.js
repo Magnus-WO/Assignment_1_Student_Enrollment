@@ -2,9 +2,11 @@ import Manager from "./entityManager.js";
 // import Form from "./formValidation.js";
 import Ui from "./ui.js";
 // Select elements
+
 const addStudentButton = document.querySelector(".add-student__button");
 const addInstructorButton = document.querySelector(".add-instructor__button");
 const addCourseButton = document.querySelector(".add-course__button");
+
 
 const addModal = document.querySelector(".add-modal");
 const formSubmitButton = document.querySelector(".add-modal__button--confirm");
@@ -47,11 +49,12 @@ document.addEventListener("DOMContentLoaded", () => {
   Ui.closeAddModal(closeModalButton, addModal);
 });
 
+
 // Track student or instructor buttons
 let selectedPersonType = "";
 addStudentButton.addEventListener("click", () => {
   selectedPersonType = "student";
-});
+
 
 addInstructorButton.addEventListener("click", () => {
   selectedPersonType = "instructor";
@@ -66,7 +69,7 @@ form.addEventListener("submit", (e) => {
     console.log("form not submitted");
     return;
   }
-
+// Not done ------------
   //   Submit form
   console.log("Name:", name.value.trim());
   console.log("Email:", email.value.trim());
