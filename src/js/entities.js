@@ -25,9 +25,12 @@ class Instructor extends Person {
 
 class Course {
   constructor(name, courseCode) {
+    this.courseId = uuidv4();
     this.name = name;
     this.code = courseCode;
     this.availability = true;
+    this.students = [];
+    this.maxStudents = 30;
   }
 }
 
