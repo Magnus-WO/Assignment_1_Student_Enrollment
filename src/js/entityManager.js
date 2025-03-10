@@ -43,6 +43,10 @@ class Manager {
 
     return course;
   }
+
+  static enrollStudent(student){
+    
+  }
 }
 
 export default Manager;
