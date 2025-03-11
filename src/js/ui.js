@@ -151,6 +151,21 @@ class Ui {
     });
   }
 
+  // Populate courses in dropdown menu
+  static populateCourseDropdown() {
+    const courseDropdown = document.querySelector("#courses");
+    courseDropdown.innerHTML = `<option value="">-- Select course --</option>`; // Reset dropdown
+
+    const courses = JSON.parse(localStorage.getItem("course-collection")) || [];
+
+    courses.forEach((course) => {
+      const option = document.createElement("option");
+      option.value = course.code;
+      option.textContent = course.name;
+      courseDropdown.append(option);
+    });
+  }
+
   //   Render
   static renderData() {
     Ui.renderTable("student-collection", "#studentList");
