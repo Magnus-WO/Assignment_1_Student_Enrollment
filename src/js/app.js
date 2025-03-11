@@ -36,6 +36,8 @@ document.addEventListener("DOMContentLoaded", () => {
   Ui.renderTable("student-collection", "#studentList");
   Ui.renderTable("instructor-collection", "#instructorList");
   Ui.renderCourses();
+  Ui.populateCourseDropdown();
+
   Ui.openAddStudentModal(
     addStudentButton,
     addModal,
@@ -115,6 +117,7 @@ form.addEventListener("submit", (e) => {
       courseNameInput.value.trim(),
       courseCodeInput.value.trim()
     );
+    Ui.populateCourseDropdown();
     Ui.renderCourses();
   }
 });
