@@ -30,6 +30,7 @@ class Course {
     this.code = courseCode;
     this.availability = true;
     this.students = [];
+    this.instructors = [];
     this.maxStudents = 30;
   }
 }

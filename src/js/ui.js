@@ -1,7 +1,6 @@
 import { Instructor } from "./entities";
 
 class Ui {
-  static currentEditId = null;
   //   Open add modals
   static openAddModal(
     addStudentButton,
@@ -18,7 +17,6 @@ class Ui {
     addStudentButton.addEventListener("click", (e) => {
       form.reset();
 
-      Ui.currentEditId = null;
       addModal.classList.add("display-modal");
       if (modalType === "course") {
         nameInputContainer.style.display = "none";
@@ -62,6 +60,7 @@ class Ui {
       formSubmitButton,
       "student"
     );
+    Ui.populateCourseDropdown("student");
   }
 
   static openAddInstructorModal(
@@ -87,6 +86,7 @@ class Ui {
       formSubmitButton,
       "instructor"
     );
+    Ui.populateCourseDropdown("instructor");
   }
   static openAddCourseModal(
     addCourseButton,
@@ -152,7 +152,7 @@ class Ui {
   }
 
   // Populate courses in dropdown menu
-  static populateCourseDropdown() {
+  static populateCourseDropdown(personType) {
     const courseDropdown = document.querySelector("#courses");
     courseDropdown.innerHTML = `<option value="">-- Select course --</option>`; // Reset dropdown
 
@@ -162,6 +162,13 @@ class Ui {
       const option = document.createElement("option");
       option.value = course.code;
       option.textContent = course.name;
+
+      // Disable if full
+      if (personType === "student" && !course.availability) {
+        option.disabled = true;
+        option.textContent += " (FULL)";
+      }
+
       courseDropdown.append(option);
     });
   }
@@ -231,6 +238,8 @@ class Ui {
       courseCodeCell.textContent = course.code;
       const courseNameCell = document.createElement("td");
       courseNameCell.textContent = course.name;
+      const courseStudentQuantityCell = document.createElement("td");
+      courseStudentQuantityCell.textContent = course.students.length;
       const availabilityCell = document.createElement("td");
       availabilityCell.textContent = course.availability ? "✅" : "❌";
 
@@ -256,7 +265,13 @@ class Ui {
       actionButtonsContainer.append(editButton, deleteButton);
 
       // Append the elements to row
-      row.append(courseCodeCell, courseNameCell, availabilityCell, actionsCell);
+      row.append(
+        courseCodeCell,
+        courseNameCell,
+        courseStudentQuantityCell,
+        availabilityCell,
+        actionsCell
+      );
 
       // Append the row to the table
       courseList.append(row);
