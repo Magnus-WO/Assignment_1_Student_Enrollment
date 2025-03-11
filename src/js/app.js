@@ -78,9 +78,11 @@ document.addEventListener("DOMContentLoaded", () => {
 let selectedForm = "";
 addStudentButton.addEventListener("click", () => {
   selectedForm = "student";
+  Ui.populateCourseDropdown("student");
 });
 addInstructorButton.addEventListener("click", () => {
   selectedForm = "instructor";
+  Ui.populateCourseDropdown("instructor");
 });
 addCourseButton.addEventListener("click", () => {
   selectedForm = "course";
@@ -100,7 +102,8 @@ form.addEventListener("submit", (e) => {
       nameInput.value.trim(),
       emailInput.value.trim(),
       courseDropdown,
-      selectedForm
+      selectedForm,
+      feedbackMessage
     );
     Ui.renderTable(
       selectedForm === "student"
@@ -108,6 +111,9 @@ form.addEventListener("submit", (e) => {
         : "instructor-collection",
       selectedForm === "student" ? "#studentList" : "#instructorList"
     );
+    Ui.renderData();
+    Ui.renderCourses();
+    Ui.populateCourseDropdown();
   } else if (selectedForm === "course") {
     if (!Form.courseFormValidation(feedbackMessage)) {
       console.log("course not submitted");
@@ -121,3 +127,5 @@ form.addEventListener("submit", (e) => {
     Ui.renderCourses();
   }
 });
+
+// TODO: Add event listeners for delete buttons and edit buttons with functionality/methods
