@@ -33,9 +33,7 @@ const courseNameInput = document.querySelector("#course-name");
 
 // Event listener
 document.addEventListener("DOMContentLoaded", () => {
-  Ui.renderTable("student-collection", "#studentList");
-  Ui.renderTable("instructor-collection", "#instructorList");
-  Ui.renderCourses();
+  Ui.renderAllData();
   Ui.populateCourseDropdown();
 
   Ui.openAddStudentModal(
@@ -105,16 +103,18 @@ form.addEventListener("submit", (e) => {
       selectedForm,
       feedbackMessage
     );
-    Ui.renderTable(
-      selectedForm === "student"
-        ? "student-collection"
-        : "instructor-collection",
-      selectedForm === "student" ? "#studentList" : "#instructorList"
-    );
-    Ui.renderData();
+    if (selectedForm === "student") {
+      Ui.renderStudents();
+      Ui.renderCourses();
+      Ui.populateCourseDropdown();
+    } else if (selectedForm === "instructor") {
+      Ui.renderInstructors();
+      Ui.renderCourses();
+      Ui.populateCourseDropdown();
+    }
     Ui.renderCourses();
     Ui.populateCourseDropdown();
-  } else if (selectedForm === "course") {
+  } else {
     if (!Form.courseFormValidation(feedbackMessage)) {
       console.log("course not submitted");
       return;

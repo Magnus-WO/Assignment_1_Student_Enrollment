@@ -2,6 +2,7 @@ import { Instructor } from "./entities";
 
 class Ui {
   //   Open add modals
+  static currentId = null;
   static openAddModal(
     addStudentButton,
     addModal,
@@ -172,12 +173,21 @@ class Ui {
       courseDropdown.append(option);
     });
   }
-
-  //   Render
-  static renderData() {
+  // Render students
+  static renderStudents() {
     Ui.renderTable("student-collection", "#studentList");
+  }
+  static renderInstructors() {
     Ui.renderTable("instructor-collection", "#instructorList");
   }
+
+  //   Render data
+  static renderAllData() {
+    Ui.renderTable("student-collection", "#studentList");
+    Ui.renderTable("instructor-collection", "#instructorList");
+    Ui.renderCourses();
+  }
+
   static renderTable(collectionKey, tableSelector) {
     const tableBody = document.querySelector(tableSelector);
     tableBody.innerHTML = "";
