@@ -1,10 +1,11 @@
 import { Instructor } from "./entities";
 
 class Ui {
-  //   Open add modals
   static currentId = null;
+
+  // Open add modals
   static openAddModal(
-    addStudentButton,
+    addButton,
     addModal,
     form,
     nameInputContainer,
@@ -15,147 +16,64 @@ class Ui {
     formSubmitButton,
     modalType
   ) {
-    addStudentButton.addEventListener("click", (e) => {
+    addButton.addEventListener("click", () => {
       form.reset();
-
       addModal.classList.add("display-modal");
-      if (modalType === "course") {
-        nameInputContainer.style.display = "none";
-        emailInputContainer.style.display = "none";
-        courseDropdownContainer.style.display = "none";
-        courseNameInputContainer.style.display = "block";
-        courseCodeInputGroup.style.visibility = "visible";
+      Ui.currentEditId = null;
 
-        formSubmitButton.textContent = "Add course";
-      } else {
-        nameInputContainer.style.display = "block";
-        emailInputContainer.style.display = "block";
-        courseDropdownContainer.style.display = "flex";
-        courseNameInputContainer.style.display = "none";
-        courseCodeInputGroup.style.visibility = "hidden";
-      }
+      // Reset visibility
+      nameInputContainer.style.display =
+        modalType === "course" ? "none" : "block";
+      emailInputContainer.style.display =
+        modalType === "course" ? "none" : "block";
+      courseDropdownContainer.style.display =
+        modalType === "course" ? "none" : "flex";
+      courseNameInputContainer.style.display =
+        modalType === "course" ? "block" : "none";
+      courseCodeInputGroup.style.visibility =
+        modalType === "course" ? "visible" : "hidden";
+
       formSubmitButton.textContent = `Add ${modalType}`;
     });
   }
 
-  static openAddStudentModal(
-    addStudentButton,
-    addModal,
-    form,
-    nameInputContainer,
-    courseCodeInputGroup,
-    emailInputContainer,
-    courseDropdownContainer,
-    courseNameInputContainer,
-    formSubmitButton
-  ) {
-    Ui.openAddModal(
-      addStudentButton,
-      addModal,
-      form,
-      nameInputContainer,
-      courseCodeInputGroup,
-      emailInputContainer,
-      courseDropdownContainer,
-      courseNameInputContainer,
-      formSubmitButton,
-      "student"
-    );
+  static openAddStudentModal(...args) {
+    Ui.openAddModal(...args, "student");
     Ui.populateCourseDropdown("student");
   }
 
-  static openAddInstructorModal(
-    addInstructorButton,
-    addModal,
-    form,
-    nameInputContainer,
-    courseCodeInputGroup,
-    emailInputContainer,
-    courseDropdownContainer,
-    courseNameInputContainer,
-    formSubmitButton
-  ) {
-    Ui.openAddModal(
-      addInstructorButton,
-      addModal,
-      form,
-      nameInputContainer,
-      courseCodeInputGroup,
-      emailInputContainer,
-      courseDropdownContainer,
-      courseNameInputContainer,
-      formSubmitButton,
-      "instructor"
-    );
+  static openAddInstructorModal(...args) {
+    Ui.openAddModal(...args, "instructor");
     Ui.populateCourseDropdown("instructor");
   }
-  static openAddCourseModal(
-    addCourseButton,
-    addModal,
-    form,
-    nameInputContainer,
-    courseCodeInputGroup,
-    emailInputContainer,
-    courseDropdownContainer,
-    courseNameInputContainer,
-    formSubmitButton
-  ) {
-    Ui.openAddModal(
-      addCourseButton,
-      addModal,
-      form,
-      nameInputContainer,
-      courseCodeInputGroup,
-      emailInputContainer,
-      courseDropdownContainer,
-      courseNameInputContainer,
-      formSubmitButton,
-      "course"
-    );
+
+  static openAddCourseModal(...args) {
+    Ui.openAddModal(...args, "course");
   }
 
-  //   Close add modals
+  // Close add modals
   static closeAddModal(closeModalButton, addModal, feedbackMessage, form) {
-    closeModalButton.addEventListener("click", () => {
+    const resetModal = () => {
       addModal.classList.remove("display-modal");
       feedbackMessage.textContent = "";
-      const fieldsToValidate = [
-        { name: "name" },
-        { name: "email" },
-        { name: "courses" },
-        { name: "courses-code" },
-      ];
-      for (let field of fieldsToValidate) {
-        const inputField = document.querySelector(`[id= ${field.name}]`);
-        inputField.classList.remove("input-field__error");
-      }
+      ["name", "email", "courses", "courses-code"].forEach((field) => {
+        document
+          .querySelector(`[id=${field}]`)
+          .classList.remove("input-field__error");
+      });
       form.reset();
-    });
+    };
 
-    // Close modal on click outside of form
+    closeModalButton.addEventListener("click", resetModal);
     addModal.addEventListener("click", (e) => {
-      if (e.target === addModal) {
-        addModal.classList.remove("display-modal");
-        feedbackMessage.textContent = "";
-        const fieldsToValidate = [
-          { name: "name" },
-          { name: "email" },
-          { name: "courses" },
-          { name: "courses-code" },
-        ];
-        for (let field of fieldsToValidate) {
-          const inputField = document.querySelector(`[id= ${field.name}]`);
-          inputField.classList.remove("input-field__error");
-        }
-        form.reset();
-      }
+      if (e.target === addModal) resetModal();
     });
   }
 
   // Populate courses in dropdown menu
   static populateCourseDropdown(personType) {
     const courseDropdown = document.querySelector("#courses");
-    courseDropdown.innerHTML = `<option value="">-- Select course --</option>`; // Reset dropdown
+    courseDropdown.innerHTML = `<option value="">-- Select course --</option>`;
 
     const courses = JSON.parse(localStorage.getItem("course-collection")) || [];
 
@@ -163,17 +81,15 @@ class Ui {
       const option = document.createElement("option");
       option.value = course.code;
       option.textContent = course.name;
-
-      // Disable if full
       if (personType === "student" && !course.availability) {
         option.disabled = true;
         option.textContent += " (FULL)";
       }
-
       courseDropdown.append(option);
     });
   }
-  // Render students
+
+  // Render entities
   static renderStudents() {
     Ui.renderTable("student-collection", "#studentList");
   }
@@ -181,7 +97,6 @@ class Ui {
     Ui.renderTable("instructor-collection", "#instructorList");
   }
 
-  //   Render data
   static renderAllData() {
     Ui.renderTable("student-collection", "#studentList");
     Ui.renderTable("instructor-collection", "#instructorList");
@@ -197,7 +112,6 @@ class Ui {
       const row = document.createElement("tr");
       row.classList.add("table-row");
 
-      // Create table cells dynamically
       const nameCell = document.createElement("td");
       nameCell.textContent = person.name;
       const emailCell = document.createElement("td");
@@ -205,45 +119,45 @@ class Ui {
       const courseCell = document.createElement("td");
       courseCell.textContent = person.course;
 
-      //   Create action buttons
+      // Action buttons
       const actionButtonsContainer = document.createElement("div");
       actionButtonsContainer.classList.add("action-buttons__container");
       const actionsCell = document.createElement("td");
 
-      // Create Edit Button
+      // Edit button
       const editButton = document.createElement("button");
       editButton.textContent = "✎";
       editButton.classList.add("edit-button");
       editButton.setAttribute("data-id", index);
 
-      // Create Delete Button
+      // Delete button
       const deleteButton = document.createElement("button");
       deleteButton.textContent = "❌";
       deleteButton.classList.add("delete-button");
       deleteButton.setAttribute("data-id", index);
 
-      // Append buttons to actions cell
-      actionsCell.append(actionButtonsContainer);
       actionButtonsContainer.append(editButton, deleteButton);
+      actionsCell.append(actionButtonsContainer);
 
-      // Append the elements to row
       row.append(nameCell, emailCell, courseCell, actionsCell);
-
-      // Append the row to the table
       tableBody.append(row);
+
+      // Edit button event listener
+      editButton.addEventListener("click", () => {
+        Ui.displayEditModal(index, collectionKey);
+      });
     });
   }
 
   static renderCourses() {
     const courseList = document.querySelector("#courseList");
     courseList.innerHTML = "";
-
     const courses = JSON.parse(localStorage.getItem("course-collection")) || [];
+
     courses.forEach((course, index) => {
       const row = document.createElement("tr");
       row.classList.add("table-row");
 
-      // Create table cells dynamically
       const courseCodeCell = document.createElement("td");
       courseCodeCell.textContent = course.code;
       const courseNameCell = document.createElement("td");
@@ -253,28 +167,25 @@ class Ui {
       const availabilityCell = document.createElement("td");
       availabilityCell.textContent = course.availability ? "✅" : "❌";
 
-      //   Create action buttons
       const actionButtonsContainer = document.createElement("div");
       actionButtonsContainer.classList.add("action-buttons__container");
       const actionsCell = document.createElement("td");
 
-      // Create Edit Button
+      // Edit button
       const editButton = document.createElement("button");
       editButton.textContent = "✎";
       editButton.classList.add("edit-button");
       editButton.setAttribute("data-id", index);
 
-      // Create Delete Button
+      // Delete button
       const deleteButton = document.createElement("button");
       deleteButton.textContent = "❌";
       deleteButton.classList.add("delete-button");
       deleteButton.setAttribute("data-id", index);
 
-      // Append buttons to actions cell
-      actionsCell.append(actionButtonsContainer);
       actionButtonsContainer.append(editButton, deleteButton);
+      actionsCell.append(actionButtonsContainer);
 
-      // Append the elements to row
       row.append(
         courseCodeCell,
         courseNameCell,
@@ -282,19 +193,69 @@ class Ui {
         availabilityCell,
         actionsCell
       );
-
-      // Append the row to the table
       courseList.append(row);
+
+      // Edit button event listener
+      editButton.addEventListener("click", () => {
+        Ui.displayEditModal(index, "course-collection");
+      });
     });
   }
 
-  static populateForm(
-    e,
-    formHeader,
-    emailContainer,
-    selectOptionsContainer,
-    courseCodeContainer
-  ) {}
+  static displayEditModal(id, dataKey) {
+    const editModal = document.querySelector(".add-modal");
+    const formSubmitButton = document.querySelector(
+      ".add-modal__button--confirm"
+    );
+
+    const nameInputContainer = document.querySelector(".name-container");
+    const emailInputContainer = document.querySelector(".email-container");
+    const courseDropdownContainer = document.querySelector(
+      ".select-course-dropdown"
+    );
+    const courseCodeInputGroup = document.querySelector(".course-code__group");
+    const courseNameInputContainer = document.querySelector(
+      ".course-name-container"
+    );
+
+    editModal.classList.add("display-modal");
+    formSubmitButton.textContent = "Confirm edit";
+
+    nameInputContainer.style.display =
+      dataKey === "course-collection" ? "none" : "block";
+    emailInputContainer.style.display =
+      dataKey === "course-collection" ? "none" : "block";
+    courseDropdownContainer.style.display =
+      dataKey === "course-collection" ? "none" : "flex";
+    courseNameInputContainer.style.display =
+      dataKey === "course-collection" ? "block" : "none";
+    courseCodeInputGroup.style.visibility =
+      dataKey === "course-collection" ? "visible" : "hidden";
+
+    Ui.populateForm(id, dataKey);
+  }
+
+  static populateForm(id, dataKey) {
+    const nameInput = document.querySelector("#name");
+    const emailInput = document.querySelector("#email");
+    const courseDropdown = document.querySelector("#courses");
+    const courseCodeInput = document.querySelector("#course-code");
+    const courseNameInput = document.querySelector("#course-name");
+
+    const collection = JSON.parse(localStorage.getItem(dataKey)) || [];
+    const entityToEdit = collection[id];
+
+    Ui.currentId = id;
+
+    if (dataKey.includes("student") || dataKey.includes("instructor")) {
+      nameInput.value = entityToEdit.name;
+      emailInput.value = entityToEdit.email;
+      courseDropdown.value = entityToEdit.course;
+    } else if (dataKey === "course-collection") {
+      courseCodeInput.value = entityToEdit.code;
+      courseNameInput.value = entityToEdit.name;
+    }
+  }
 }
 
 export default Ui;
