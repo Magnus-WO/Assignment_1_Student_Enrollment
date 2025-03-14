@@ -94,6 +94,19 @@ class Manager {
 
     return course;
   }
+
+  static findEntityById(id, type) {
+    switch (type) {
+      case "student":
+        return this.students.find((s) => s.studentId === id);
+      case "instructor":
+        return this.instructors.find((i) => i.instructorId === id);
+      case "course":
+        return this.courses.find((c) => c.courseId === id);
+      default:
+        return console.log("Could´t find the entity");
+    }
+  }
 }
 
 // TODO: add delete method for for every entity. Make sure it removes students from the array inside the courses called students.

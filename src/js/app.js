@@ -14,7 +14,6 @@ const feedbackMessage = document.querySelector(".add-form__feedback-message");
 const form = document.querySelector(".add-modal__form");
 const nameInputContainer = document.querySelector(".name-container");
 const nameInput = document.querySelector("#name");
-
 const emailInputContainer = document.querySelector(".email-container");
 const emailInput = document.querySelector("#email");
 
