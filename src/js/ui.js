@@ -136,6 +136,7 @@ class Ui {
       deleteButton.classList.add("delete-button");
       deleteButton.setAttribute("data-id", index);
 
+
       actionButtonsContainer.append(editButton, deleteButton);
       actionsCell.append(actionButtonsContainer);
 

@@ -109,6 +109,24 @@ class Manager {
   }
 }
 
+
+// ~~~~~~~~~~~ REMOVAL METHODS ~~~~~~~~~~~
+export function removeStudentById(id) {
+  const index = students.findIndex((s) => s.id === id);
+  if (index !== -1) students.splice(index, 1);
+}
+
+export function removeInstructorById(id) {
+  const index = instructors.findIndex((i) => i.id === id);
+  if (index !== -1) instructors.splice(index, 1);
+}
+
+export function removeCourseById(id) {
+  const index = courses.findIndex((c) => c.id === id);
+  if (index !== -1) courses.splice(index, 1);
+}
+
+
 // TODO: add delete method for for every entity. Make sure it removes students from the array inside the courses called students.
 
 export default Manager;
